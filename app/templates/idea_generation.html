@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Idea Generation for YouTube Shorts</h2>
+    <p>Click the button below to generate video ideas based on your YouTube channel's description and name.</p>
+    <form id="idea-generation-form" method="post" action="{{ url_for('youtube_views.generate_ideas') }}">
+        <input type="hidden" name="channel_info" value="{{ channel_info|tojson }}">
+        <div class="d-grid gap-2">
+            <button class="btn btn-primary" type="submit" id="generate-ideas-button">Generate Video Ideas for Shorts</button>
+        </div>
+    </form>
+    {% if ideas %}
+    <div class="mt-4">
+        <h3>Generated Ideas</h3>
+        <ul class="list-group">
+            {% for idea in ideas %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{ idea }}
+                <button class="btn btn-outline-success btn-sm" onclick="favoriteIdea('{{ idea|tojson }}')">Favorite</button>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+function favoriteIdea(idea) {
+    fetch("{{ url_for('views.favorite_idea') }}", {
+        method: 'POST',
+        body: JSON.stringify({ idea: idea }),
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': "{{ csrf_token() }}"
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('Idea favorited successfully!');
+        } else {
+            alert('Failed to favorite the idea.');
+        }
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+}
+</script>
+{% endblock %}

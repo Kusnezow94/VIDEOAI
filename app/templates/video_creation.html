@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-3">Video Creation</h2>
+    <p>Select your favorite ideas to create a video script, title, description, and hashtags.</p>
+    <form id="video-creation-form" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="favorite-ideas" class="form-label">Favorite Ideas</label>
+            <select class="form-select" id="favorite-ideas" name="favorite_ideas" multiple aria-label="Favorite ideas select">
+                {% for idea in favorite_ideas %}
+                <option value="{{ idea.id }}">{{ idea.content }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="d-grid gap-2">
+            <button type="submit" class="btn btn-primary" id="create-video-button">Create Video</button>
+        </div>
+    </form>
+    <div id="video-creation-status" class="mt-4"></div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.getElementById('video-creation-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const selectedIdeas = Array.from(document.getElementById('favorite-ideas').selectedOptions).map(option => option.value);
+    const statusDiv = document.getElementById('video-creation-status');
+    statusDiv.innerHTML = 'Generating video...';
+
+    fetch('/create_video', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token() }}'
+        },
+        body: JSON.stringify({ 'selected_ideas': selectedIdeas })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            statusDiv.innerHTML = 'Video created successfully!';
+        } else {
+            statusDiv.innerHTML = 'Failed to create video.';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        statusDiv.innerHTML = 'An error occurred while creating the video.';
+    });
+});
+</script>
+{% endblock %}

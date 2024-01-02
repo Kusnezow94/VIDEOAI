@@ -1,0 +1,105 @@
+/* Main styling for the application */
+body {
+  background-color: #f8f9fa;
+  font-family: 'Arial', sans-serif;
+}
+
+/* Navigation bar styling */
+.navbar {
+  background-color: #343a40;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #fff;
+}
+
+/* Form input and button styling */
+.form-control,
+.btn {
+  border-radius: 0.25rem;
+}
+
+/* Login and registration form specific */
+#login-form,
+#register-form,
+#forgot-password-form,
+#reset-password-form {
+  max-width: 400px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #ffffff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+/* Button styling for idea generation and video creation */
+#generate-ideas-button,
+#create-video-button {
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+/* Favorite ideas list styling */
+.favorite-ideas-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.favorite-idea-item {
+  background-color: #e9ecef;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0.25rem;
+}
+
+/* Video creation form styling */
+.video-creation-form {
+  margin-top: 2rem;
+}
+
+/* Flash message styling */
+#flash-messages .alert {
+  margin-bottom: 0;
+  border-radius: 0;
+}
+
+/* Footer styling */
+footer {
+  background-color: #343a40;
+  color: #fff;
+  padding: 1rem 0;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Custom styles for YouTube Shorts style */
+.youtube-shorts-container {
+  background-color: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.youtube-shorts-video {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  background-color: #000;
+}
+
+/* Responsive design adjustments */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.2rem;
+  }
+
+  #login-form,
+  #register-form,
+  #forgot-password-form,
+  #reset-password-form,
+  .video-creation-form {
+    margin: 1rem;
+  }
+}

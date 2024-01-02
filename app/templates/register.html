@@ -1,0 +1,74 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h3>Create Account</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="register-form" method="post">
+                            {{ form.hidden_tag() }}
+                            <div class="mb-3">
+                                {{ form.username.label(class="form-label") }}
+                                {{ form.username(class="form-control", placeholder="Username") }}
+                                {% if form.username.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.username.errors[0] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.email.label(class="form-label") }}
+                                {{ form.email(class="form-control", placeholder="Email") }}
+                                {% if form.email.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.email.errors[0] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.password.label(class="form-label") }}
+                                {{ form.password(class="form-control", placeholder="Password") }}
+                                {% if form.password.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.password.errors[0] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                {{ form.confirm.label(class="form-label") }}
+                                {{ form.confirm(class="form-control", placeholder="Confirm Password") }}
+                                {% if form.confirm.errors %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{ form.confirm.errors[0] }}
+                                    </div>
+                                {% endif %}
+                            </div>
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-primary">Register</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="card-footer text-center">
+                        Already have an account? <a href="{{ url_for('auth.login') }}">Login</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
+```
