@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">Connect Your YouTube Channel</h2>
+    <p>Please connect your YouTube account to enable video idea generation.</p>
+    <div class="row">
+        <div class="col-md-6">
+            <form method="POST" action="{{ url_for('youtube_connect') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-primary">Connect YouTube Account</button>
+            </form>
+        </div>
+    </div>
+    {% if flash_messages %}
+        <div class="mt-4">
+            {% for message in flash_messages %}
+                <div class="alert alert-warning" role="alert">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}
